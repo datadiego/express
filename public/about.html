@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <h1>About</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In vero odio accusamus. Repellendus beatae, exercitationem, similique culpa eum quam dolorem pariatur inventore provident tempore recusandae nostrum suscipit quibusdam quia explicabo.</p>
+        <script>
+            fetch("/bio")
+            .then(data => data.json())
+            .then((bio) => {
+                const { nombre, edad, email } = bio
+                const p = document.createElement("p")
+                p.innerHTML = `Hola mi nombre es ${nombre} tengo ${edad} años y mi correo es ${email}`
+                document.querySelector(".container").appendChild(p)
+            })
+            .catch(err => console.log(err))
+        </script>
+    </main>
+</body>
+</html>
