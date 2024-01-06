@@ -6,11 +6,6 @@ const PORT = 3000;
 
 const app = express();
 
-app.use(express.static('public'))
-var corsOptions = {
-    origin: 'http://127.0.0.1:5500',
-  }
-
 function logger(req, res, next) {
     const message = `${req.method} request for ${req.url} from ${req.ip} at ${new Date()}\n`
     console.log(message)
@@ -21,10 +16,15 @@ function logger(req, res, next) {
     //save log.json
     fs.writeFileSync('log.json', JSON.stringify(log))
     next()
-    }
+}
 
+var corsOptions = {
+    origin: 'http://127.0.0.1:5500',
+}   
+
+app.use(cors(corsOptions)) 
+app.use(express.static('public'))
 app.use(logger)
-app.use(cors(corsOptions))
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
